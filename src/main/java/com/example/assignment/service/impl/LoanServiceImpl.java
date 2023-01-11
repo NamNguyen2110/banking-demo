@@ -36,7 +36,7 @@ public class LoanServiceImpl implements LoanService {
     public Loan save(LoanDTO loanDTO) {
 
         //TODO: validate loan data
-        Assert.isTrue(loanDTO.getLoanId() != null, "loanId is required");
+//        Assert.isTrue(loanDTO.getLoanId() != null, "loanId is required");
         Assert.isTrue(loanDTO.getApplicant() != null, "applicant is required");
         Assert.isTrue(loanDTO.getCurrency() != null, "currency is required");
         Assert.isTrue(loanDTO.getStartDate() != null, "startDate is required");
@@ -53,7 +53,7 @@ public class LoanServiceImpl implements LoanService {
 
         Double totalDebt = loansOfApplicant.stream().map(Loan::getAmount).collect(Collectors.summingDouble(Double::intValue));
 
-        Assert.isTrue(credit.getTotalLimit() <= totalDebt, "cant create loan. total debt is maximum");
+        Assert.isTrue(credit.getTotalLimit() >= totalDebt, "cant create loan. total debt is maximum");
 
         //TODO: validate startDate < now < endDate of credit
 
